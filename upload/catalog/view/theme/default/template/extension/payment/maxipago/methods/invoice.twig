@@ -1,0 +1,35 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <input type="radio" name="payment_method" data-panel="invoice"/>
+        <img src="{{ image_title_invoice }}" />
+        {{ text_title_invoice }}
+    </div>
+    <div id="panel-invoice" class="panel-body payment-panel" style="display: none;">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>{{ invoice_document_label }}</label>
+                    <input id="invoice_document" name="invoice_document"
+                           type="text" class="form-control cpfcnpj" placeholder="***.***.***-**"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-info">
+                    <p><i class="glyphicon glyphicon-info-sign"></i> {{ invoice_instructions }}</p>
+                </div>
+            </div>
+        </div>
+
+        <hr />
+        <div class="buttons">
+            <div class="pull-right">
+                <input type="button" value="{{ invoice_submit_checkout }}"
+                       id="button-confirm-invoice" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</div>

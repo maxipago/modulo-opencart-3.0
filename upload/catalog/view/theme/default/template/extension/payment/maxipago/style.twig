@@ -1,0 +1,11 @@
+{% if credit_card_enabled %}
+    {% include 'default/template/extension/payment/maxipago/styles/credit_card.twig' %}
+{% endif %}
+
+{% if debit_card_enabled %}
+    {% include 'default/template/extension/payment/maxipago/styles/debit_card.twig' %}
+{% endif %}
+
+{% if eft_enabled %}
+    {% include 'default/template/extension/payment/maxipago/styles/eft.twig' %}
+{% endif %}

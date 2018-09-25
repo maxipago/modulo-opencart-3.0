@@ -1,0 +1,53 @@
+<div class="form-group">
+    <label class="col-sm-2 control-label">
+        <span data-toggle="tooltip" title="{{ invoice_enable_tooltip }}">
+            {{ invoice_enable_label }}
+        </span>
+    </label>
+    <div class="col-sm-10">
+        <select name="payment_maxipago_invoice_enabled" id="payment_maxipago_invoice_enabled" class="form-control">
+            <option value="0" {{ payment_maxipago_invoice_enabled == 0 ? 'selected' : '' }}>{{ text_disabled }}</option>
+            <option value="1" {{ payment_maxipago_invoice_enabled == 1 ? 'selected' : '' }}>{{ text_enabled }}</option>
+        </select>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">
+        <span data-toggle="tooltip" title="{{ invoice_bank_tooltip }}">
+            {{ invoice_bank_label }}
+        </span>
+    </label>
+    <div class="col-sm-10">
+        <select class="form-control"
+                name="payment_maxipago_invoice_bank" id="payment_maxipago_invoice_bank">
+            <option value="">{{ text_select }}</option>
+            {% for value, label in invoice_banks %}
+                <option value="{{ value }}" {{ payment_maxipago_invoice_bank == value ? 'selected' : '' }}>{{ label }}</option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">
+        <span data-toggle="tooltip" title="{{ invoice_days_to_pay_tooltip }}">
+            {{ invoice_days_to_pay_label }}
+        </span>
+    </label>
+    <div class="col-sm-10">
+        <input class="form-control" value="{{ payment_maxipago_invoice_days_to_pay }}"
+               name="payment_maxipago_invoice_days_to_pay" id="payment_maxipago_invoice_days_to_pay"  />
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">
+        <span data-toggle="tooltip" title="{{ invoice_instructions_tooltip }}">
+            {{ invoice_instructions_label }}
+        </span>
+    </label>
+    <div class="col-sm-10">
+        <textarea name="payment_maxipago_invoice_instructions" id="payment_maxipago_invoice_instructions"class="form-control">{{ payment_maxipago_invoice_instructions }}</textarea>
+    </div>
+</div>

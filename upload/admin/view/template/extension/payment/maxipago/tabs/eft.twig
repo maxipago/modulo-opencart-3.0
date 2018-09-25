@@ -1,0 +1,33 @@
+<div class="form-group">
+    <label class="col-sm-2 control-label">
+        <span data-toggle="tooltip" title="{{ eft_enable_tooltip }}">
+            {{ eft_enable_label }}
+        </span>
+    </label>
+    <div class="col-sm-10">
+        <select name="payment_maxipago_eft_enabled" id="payment_maxipago_eft_enabled" class="form-control">
+            <option value="0" {{ payment_maxipago_eft_enabled == 0 ? 'selected' : '' }}>{{ text_disabled }}</option>
+            <option value="1" {{ payment_maxipago_eft_enabled == 1 ? 'selected' : '' }}>{{ text_enabled }}</option>
+        </select>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">
+        <span data-toggle="tooltip" title="{{ eft_bank_tooltip }}">
+            {{ eft_bank_label }}
+        </span>
+    </label>
+    <div class="col-sm-10 row">
+        {% for value, label in eft_banks %}
+            <div class="col-sm-12">
+                <label>
+                    <input type="checkbox" value="{{ value }}"
+                            {{ value in payment_maxipago_eft_banks? 'checked' : '' }}
+                           name="payment_maxipago_eft_banks[]" id="payment_maxipago_eft_banks">
+                    {{ label }}
+                </label>
+            </div>
+        {% endfor %}
+    </div>
+</div>

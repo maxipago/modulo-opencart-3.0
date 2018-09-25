@@ -1,0 +1,89 @@
+<div class="form-group">
+    <label class="col-sm-2 control-label">
+        <span data-toggle="tooltip" title="{{ status_processing_tooltip }}">
+            {{ status_processing_label }}
+        </span>
+    </label>
+    <div class="col-sm-10">
+        <select name="payment_maxipago_order_status_processing" id="payment_maxipago_order_status_processing" class="form-control">
+            <option value="" {{ payment_maxipago_order_status_processing == '' ? 'selected' : '' }}>{{ text_select }}</option>
+            {% for order_status in order_statuses %}
+            <option value="{{ order_status['order_status_id'] }}" {{ payment_maxipago_order_status_processing == order_status['order_status_id'] ? 'selected' : '' }}>
+                {{ order_status['name'] }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">
+        <span data-toggle="tooltip" title="{{ status_authorized_tooltip }}">
+            {{ status_authorized_label }}
+        </span>
+    </label>
+    <div class="col-sm-10">
+        <select name="payment_maxipago_order_status_authorized" id="payment_maxipago_order_status_authorized" class="form-control">
+            <option value="" {{ payment_maxipago_order_status_authorized == '' ? 'selected' : '' }}>{{ text_select }}</option>
+            {% for order_status in order_statuses %}
+                <option value="{{ order_status['order_status_id'] }}" {{ payment_maxipago_order_status_authorized == order_status['order_status_id'] ? 'selected' : '' }}>
+                    {{ order_status['name'] }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">
+        <span data-toggle="tooltip" title="{{ status_refunded_tooltip }}">
+            {{ status_refunded_label }}
+        </span>
+    </label>
+    <div class="col-sm-10">
+        <select name="payment_maxipago_order_status_refunded" id="payment_maxipago_order_status_refunded" class="form-control">
+            <option value="" {{ payment_maxipago_order_status_refunded == '' ? 'selected' : '' }}>{{ text_select }}</option>
+            {% for order_status in order_statuses %}
+                <option value="{{ order_status['order_status_id'] }}" {{ payment_maxipago_order_status_refunded == order_status['order_status_id'] ? 'selected' : '' }}>
+                    {{ order_status['name'] }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">
+        <span data-toggle="tooltip" title="{{ status_approved_tooltip }}">
+            {{ status_approved_label }}
+        </span>
+    </label>
+    <div class="col-sm-10">
+        <select name="payment_maxipago_order_status_approved" id="payment_maxipago_order_status_approved" class="form-control">
+            <option value="" {{ payment_maxipago_order_status_approved == '' ? 'selected' : '' }}>{{ text_select }}</option>
+            {% for order_status in order_statuses %}
+                <option value="{{ order_status['order_status_id'] }}" {{ payment_maxipago_order_status_approved == order_status['order_status_id'] ? 'selected' : '' }}>
+                    {{ order_status['name'] }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">
+        <span data-toggle="tooltip" title="{{ status_cancelled_tooltip }}">
+            {{ status_cancelled_label }}
+        </span>
+    </label>
+    <div class="col-sm-10">
+        <select name="payment_maxipago_order_status_cancelled" id="payment_maxipago_order_status_cancelled" class="form-control">
+            <option value="" {{ payment_maxipago_order_status_cancelled == '' ? 'selected' : '' }}>{{ text_select }}</option>
+            {% for order_status in order_statuses %}
+                <option value="{{ order_status['order_status_id'] }}" {{ payment_maxipago_order_status_cancelled == order_status['order_status_id'] ? 'selected' : '' }}>
+                    {{ order_status['name'] }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+</div>

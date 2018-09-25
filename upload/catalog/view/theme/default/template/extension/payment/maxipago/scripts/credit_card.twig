@@ -1,0 +1,135 @@
+{{ fraud_script }}
+<script>
+
+    $('input.maxipago-cc-brand').on('click', function(){
+        $('.mp-card-cc-brand img').removeClass('active');
+        $(this).siblings('img').addClass('active');
+    });
+
+    $('#maxipago-form #credit_card_use_card').change(function() {
+        if(useNewCreditCard()) {
+            $('#maxipago-form .new-credit-card').slideDown();
+            $('#maxipago-form #button-delete-credit-card').slideUp();
+        }
+        else {
+            $('#maxipago-form .new-credit-card').slideUp();
+            $('#maxipago-form #button-delete-credit-card').slideDown();
+        }
+    });
+
+    $('#maxipago-form #button-delete-credit-card').on('click', function() {
+        var card_description = $('#maxipago-form #credit_card_use_card').val();
+
+        $.ajax({
+            url: 'index.php?route=extension/payment/maxipago/delete',
+            type: "POST",
+            cache: false,
+            headers: {"cache-control": "no-cache"},
+            data: {
+                'ident': card_description
+            },
+            dataType: "json",
+            success: function(result) {
+                if (result.success == true) {
+                    $('#maxipago-form #credit_card_use_card option[value="' + card_description + '"]').remove();
+                    $('#maxipago-form #credit_card_use_card').val('').change();
+                }
+            }
+        });
+    });
+
+    $('#maxipago-form #button-confirm-credit-card').on('click', function() {
+        if(creditCardFieldsAreValid())
+            submitCreditCard();
+    });
+
+    function creditCardFieldsAreValid()
+    {
+        $('#maxipago-form #panel-credit-card .form-group').removeClass('has-error');
+
+        if(useNewCreditCard())
+        {
+            if(noRadiosSelected('credit_card_brand'))
+                addErrorToRadioSelection('credit_card_brand');
+
+            if(fieldIsEmpty('credit_card_number'))
+                addErrorToFieldFormGroup('credit_card_number');
+
+            if(fieldIsEmpty('credit_card_owner'))
+                addErrorToFieldFormGroup('credit_card_owner');
+        }
+
+        if(fieldIsEmpty('credit_card_cvv'))
+            addErrorToFieldFormGroup('credit_card_cvv');
+
+        if(fieldIsEmpty('credit_card_installments'))
+            addErrorToFieldFormGroup('credit_card_installments');
+
+        if(fieldIsEmpty('credit_card_document'))
+            addErrorToFieldFormGroup('credit_card_document');
+
+        return noFieldHasError('panel-credit-card');
+    }
+
+    function useNewCreditCard()
+    {
+        if($('#maxipago-form #credit_card_use_card').length == 1)
+        {
+            return $('#maxipago-form #credit_card_use_card').val() == '';
+        }
+
+        return true;
+    }
+
+    function submitCreditCard()
+    {
+        var formData = getCreditCardFormData();
+
+        formData.method = 'credit-card';
+
+        beginCheckoutTransaction(formData, function(successData) {
+            successData.type = 'credit-card';
+            return successData;
+        });
+    }
+
+    function getCreditCardFormData()
+    {
+        var data = {};
+
+        data.new_credit_card = useNewCreditCard();
+
+        if(data.new_credit_card)
+        {
+            data.new = true;
+            data.brand = $('#maxipago-form input[name=credit_card_brand]:checked').val();
+            data.number = $('#maxipago-form #credit_card_number').cleanVal();
+            data.owner = $('#maxipago-form #credit_card_owner').val();
+
+            data.save = canSaveCreditCard();
+        } else
+        {
+            data.new = false;
+            data.credit_card = $('#maxipago-form #credit_card_use_card').val();
+        }
+
+        data.cvv = $('#maxipago-form #credit_card_cvv').cleanVal();
+        data.document = $('#maxipago-form #credit_card_document').cleanVal();
+        data.installments = $('#maxipago-form #credit_card_installments').val();
+
+        data.expiry_month = $('#maxipago-form #credit_card_expiry_month').val();
+        data.expiry_year = $('#maxipago-form #credit_card_expiry_year').val();
+
+        return data;
+    }
+
+    function canSaveCreditCard()
+    {
+        if($('#maxipago-form #credit_card_save').length == 1)
+        {
+            return $('#maxipago-form #credit_card_save').is(':checked');
+        }
+
+        return false;
+    }
+</script>

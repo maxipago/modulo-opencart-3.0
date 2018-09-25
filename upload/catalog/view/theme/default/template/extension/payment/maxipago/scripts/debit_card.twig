@@ -1,0 +1,65 @@
+<script>
+    $('input.maxipago-dc-brand').on('click', function(){
+        $('.mp-card-dc-brand img').removeClass('active');
+        $(this).siblings('img').addClass('active');
+    });
+
+    $('#maxipago-form #button-confirm-debit-card').on('click', function() {
+        if(debitCardFieldsAreValid())
+            submitDebitCard();
+    });
+
+    function debitCardFieldsAreValid()
+    {
+        $('#maxipago-form #panel-debit-card .form-group').removeClass('has-error');
+
+        if(noRadiosSelected('debit_card_brand'))
+            addErrorToRadioSelection('debit_card_brand');
+
+        if(fieldIsEmpty('debit_card_number'))
+            addErrorToFieldFormGroup('debit_card_number');
+
+        if(fieldIsEmpty('debit_card_owner'))
+            addErrorToFieldFormGroup('debit_card_owner');
+
+        if(fieldIsEmpty('debit_card_cvv'))
+            addErrorToFieldFormGroup('debit_card_cvv');
+
+        if(fieldIsEmpty('debit_card_installments'))
+            addErrorToFieldFormGroup('debit_card_installments');
+
+        if(fieldIsEmpty('debit_card_document'))
+            addErrorToFieldFormGroup('debit_card_document');
+
+        return noFieldHasError('panel-debit-card');
+    }
+
+    function submitDebitCard()
+    {
+        var formData = getDebitCardFormData();
+        formData.method = 'debit-card';
+
+        beginCheckoutTransaction(formData, function(successData) {
+            successData.type = 'debit-card';
+            return successData;
+        });
+    }
+
+    function getDebitCardFormData()
+    {
+        var data = {};
+
+        data.brand = $('#maxipago-form input[name=debit_card_brand]:checked').val();
+        data.number = $('#maxipago-form #debit_card_number').cleanVal();
+        data.owner = $('#maxipago-form #debit_card_owner').val();
+
+        data.expiry_month = $('#maxipago-form #debit_card_expiry_month').val();
+        data.expiry_year = $('#maxipago-form #debit_card_expiry_year').val();
+
+        data.cvv = $('#maxipago-form #debit_card_cvv').cleanVal();
+        data.installments = $('#maxipago-form #debit_card_installments').val();
+        data.document = $('#maxipago-form #debit_card_document').cleanVal();
+
+        return data;
+    }
+</script>

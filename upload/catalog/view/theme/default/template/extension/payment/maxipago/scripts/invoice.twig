@@ -1,0 +1,36 @@
+<script>
+    $('#maxipago-form #button-confirm-invoice').on('click', function() {
+        if(invoiceFieldsAreValid())
+            submitInvoice();
+    });
+
+    function invoiceFieldsAreValid()
+    {
+        $('#maxipago-form #panel-invoice .form-group').removeClass('has-error');
+
+        if(fieldIsEmpty('invoice_document'))
+            addErrorToFieldFormGroup('invoice_document');
+
+        return noFieldHasError('panel-invoice');
+    }
+
+    function submitInvoice()
+    {
+        var formData = getInvoiceFormData();
+        formData.method = 'invoice';
+
+        beginCheckoutTransaction(formData, function(successData) {
+            successData.type = 'invoice';
+            return successData;
+        });
+    }
+
+    function getInvoiceFormData()
+    {
+        var data = {};
+
+        data.document = $('#maxipago-form #invoice_document').cleanVal();
+
+        return data;
+    }
+</script>

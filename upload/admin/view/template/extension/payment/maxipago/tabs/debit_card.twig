@@ -1,0 +1,97 @@
+<div class="form-group">
+    <label class="col-sm-2 control-label">
+        <span data-toggle="tooltip" title="{{ debit_card_enable_tooltip }}">
+            {{ debit_card_enable_label }}
+        </span>
+    </label>
+    <div class="col-sm-10">
+        <select name="payment_maxipago_debit_card_enabled" id="payment_maxipago_debit_card_enabled" class="form-control">
+            <option value="0" {{ payment_maxipago_debit_card_enabled == 0 ? 'selected' : '' }}>{{ text_disabled }}</option>
+            <option value="1" {{ payment_maxipago_debit_card_enabled == 1 ? 'selected' : '' }}>{{ text_enabled }}</option>
+        </select>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">
+        <span data-toggle="tooltip" title="{{ debit_card_soft_descriptor_tooltip }}">
+            {{ debit_card_soft_descriptor_label }}
+        </span>
+    </label>
+    <div class="col-sm-10">
+        <input class="form-control" value="{{ payment_maxipago_debit_card_soft_descriptor }}"
+               name="payment_maxipago_debit_card_soft_descriptor" id="payment_maxipago_debit_card_soft_descriptor"  />
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">
+        <span data-toggle="tooltip" title="{{ debit_card_mpi_processor_tooltip }}">
+            {{ debit_card_mpi_processor_label }}
+        </span>
+    </label>
+    <div class="col-sm-10">
+        <select name="payment_maxipago_debit_card_mpi_processor" id="payment_maxipago_debit_card_mpi_processor" class="form-control">
+            <option value="41" {{ payment_maxipago_debit_card_mpi_processor == "41" ? 'selected' : '' }}>{{ debit_card_mpi_test }}</option>
+            <option value="40" {{ payment_maxipago_debit_card_mpi_processor == "40" ? 'selected' : '' }}>{{ debit_card_mpi_deployment }}</option>
+        </select>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">
+        <span data-toggle="tooltip" title="{{ debit_card_failure_action_tooltip }}">
+            {{ debit_card_failure_action_label }}
+        </span>
+    </label>
+    <div class="col-sm-10">
+        <select name="payment_maxipago_debit_card_failure_action" id="payment_maxipago_debit_card_failure_action" class="form-control">
+            <option value="decline" {{ payment_maxipago_debit_card_failure_action == "decline" ? 'selected' : '' }}>{{ debit_card_failure_action_decline }}</option>
+            <option value="continue" {{ payment_maxipago_debit_card_failure_action == "continue" ? 'selected' : '' }}>{{ debit_card_failure_action_continue }}</option>
+        </select>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div>
+                    <h3>{{ debit_card_acquirers_label }}</h3>
+                </div>
+                <small>{{ debit_card_acquirers_tooltip }}</small>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">
+                        {{ debit_card_visa_processor_label }}
+                    </label>
+                    <div class="col-sm-10">
+                        <select class="form-control"
+                                name="payment_maxipago_debit_card_visa_processor" id="payment_maxipago_debit_card_visa_processor">
+                            <option value="">{{ debit_card_processor_deactivate }}</option>
+                            {% for value, label in debit_card_visa_processors %}
+                                <option value="{{ value }}" {{ payment_maxipago_debit_card_visa_processor == value ? 'selected' : '' }}>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">
+                        {{ debit_card_mastercard_processor_label }}
+                    </label>
+                    <div class="col-sm-10">
+                        <select class="form-control"
+                                name="payment_maxipago_debit_card_mastercard_processor" id="payment_maxipago_debit_card_mastercard_processor">
+                            <option value="">{{ debit_card_processor_deactivate }}</option>
+                            {% for value, label in debit_card_mastercard_processors %}
+                                <option value="{{ value }}" {{ payment_maxipago_debit_card_mastercard_processor == value ? 'selected' : '' }}>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

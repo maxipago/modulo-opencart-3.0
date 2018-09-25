@@ -1,0 +1,416 @@
+<div class="form-group">
+    <label class="col-sm-2 control-label">
+        <span data-toggle="tooltip" title="{{ credit_card_enable_tooltip }}">
+            {{ credit_card_enable_label }}
+        </span>
+    </label>
+    <div class="col-sm-10">
+        <select name="payment_maxipago_credit_card_enabled" id="payment_maxipago_credit_card_enabled" class="form-control">
+            <option value="0" {{ payment_maxipago_credit_card_enabled == 0 ? 'selected' : '' }}>{{ text_disabled }}</option>
+            <option value="1" {{ payment_maxipago_credit_card_enabled == 1 ? 'selected' : '' }}>{{ text_enabled }}</option>
+        </select>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">
+        <span data-toggle="tooltip" title="{{ credit_card_processing_type_tooltip }}">
+            {{ credit_card_processing_type_label }}
+        </span>
+    </label>
+    <div class="col-sm-10">
+        <select class="form-control"
+                id="payment_maxipago_credit_card_processing_type" name="payment_maxipago_credit_card_processing_type">
+            <option value="auth" {{ payment_maxipago_credit_card_processing_type == 'auth' ? 'selected' : '' }}>{{ text_processing_type_auth }}</option>
+            <option value="sale" {{ payment_maxipago_credit_card_processing_type == 'sale' ? 'selected' : '' }}>{{ text_processing_type_sale }}</option>
+        </select>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">
+        <span data-toggle="tooltip" title="{{ credit_card_soft_descriptor_tooltip }}">
+            {{ credit_card_soft_descriptor_label }}
+        </span>
+    </label>
+    <div class="col-sm-10">
+        <input class="form-control" value="{{ payment_maxipago_credit_card_soft_descriptor }}"
+               name="payment_maxipago_credit_card_soft_descriptor" id="payment_maxipago_credit_card_soft_descriptor"  />
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">
+        <span data-toggle="tooltip" title="{{ credit_card_allow_save_tooltip }}">
+            {{ credit_card_allow_save_label }}
+        </span>
+    </label>
+    <div class="col-sm-10">
+        <select class="form-control" value="{{ payment_maxipago_credit_card_allow_save }}"
+                name="payment_maxipago_credit_card_allow_save" id="payment_maxipago_credit_card_allow_save">
+            <option value="0" {{ payment_maxipago_credit_card_allow_save == 0 ? 'selected' : '' }}>{{ text_disabled }}</option>
+            <option value="1" {{ payment_maxipago_credit_card_allow_save == 1 ? 'selected' : '' }}>{{ text_enabled }}</option>
+        </select>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">
+        <span data-toggle="tooltip" title="{{ credit_card_maximum_installments_tooltip }}">
+            {{ credit_card_maximum_installments_label }}
+        </span>
+    </label>
+    <div class="col-sm-10">
+        <select class="form-control" name="payment_maxipago_credit_card_maximum_installments" id="payment_maxipago_credit_card_maximum_installments">
+            <option value="1">{{ credit_card_maximum_installments_at_sight }}</option>
+            {% for i in range(2, 12) %}
+                <option value="{{ i }}" {{ payment_maxipago_credit_card_maximum_installments == i ? 'selected' : '' }}>{{ i }}</option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+
+<div class="form-group maximum-installments-dependent" style="display: none;">
+    <label class="col-sm-2 control-label">
+        <span data-toggle="tooltip" title="{{ credit_card_minimum_by_installments_tooltip }}">
+            {{ credit_card_minimum_by_installments_label }}
+        </span>
+    </label>
+    <div class="col-sm-10">
+        <input class="form-control" value="{{ payment_maxipago_credit_card_minimum_by_installments }}"
+               name="payment_maxipago_credit_card_minimum_by_installments" id="payment_maxipago_credit_card_minimum_by_installments">
+    </div>
+</div>
+
+<div class="form-group maximum-installments-dependent" style="display: none;">
+    <label class="col-sm-2 control-label">
+        <span data-toggle="tooltip" title="{{ credit_card_installments_without_interest_tooltip }}">
+            {{ credit_card_installments_without_interest_label }}
+        </span>
+    </label>
+    <div class="col-sm-10">
+        <select class="form-control"
+                name="payment_maxipago_credit_card_installments_without_interest" id="payment_maxipago_credit_card_installments_without_interest">
+            {% for i in range(1, 12) %}
+                <option value="{{ i }}" {{ payment_maxipago_credit_card_installments_without_interest == i ? 'selected' : '' }}>{{ i }}</option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+
+<div class="form-group maximum-installments-dependent" style="display: none;">
+    <label class="col-sm-2 control-label">
+        <span data-toggle="tooltip" title="{{ credit_card_interest_type_tooltip }}">
+            {{ credit_card_interest_type_label }}
+        </span>
+    </label>
+    <div class="col-sm-10">
+        <select class="form-control"
+                name="payment_maxipago_credit_card_interest_type" id="payment_maxipago_credit_card_interest_type">
+            <option value="simple" {{ payment_maxipago_credit_card_interest_type == 'simple' ? 'selected' : '' }}>{{ text_credit_card_interest_simple }}</option>
+            <option value="compound" {{ payment_maxipago_credit_card_interest_type == 'compound' ? 'selected' : '' }}>{{ text_credit_card_interest_compound }}</option>
+            <option value="price" {{ payment_maxipago_credit_card_interest_type == 'price' ? 'selected' : '' }}>{{ text_credit_card_interest_price }}</option>
+        </select>
+    </div>
+</div>
+
+<div class="form-group maximum-installments-dependent" style="display: none;">
+    <label class="col-sm-2 control-label">
+        <span data-toggle="tooltip" title="{{ credit_card_interest_rate_tooltip }}">
+            {{ credit_card_interest_rate_label }}
+        </span>
+    </label>
+    <div class="col-sm-10">
+        <input type="text" value="{{ payment_maxipago_credit_card_interest_rate }}" class="form-control"
+               name="payment_maxipago_credit_card_interest_rate" id="payment_maxipago_credit_card_interest_rate"/>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">
+        <span data-toggle="tooltip" title="{{ credit_card_fraud_check_tooltip }}">
+            {{ credit_card_fraud_check_label }}
+        </span>
+    </label>
+    <div class="col-sm-10">
+        <select name="payment_maxipago_credit_card_fraud_check" id="payment_maxipago_credit_card_fraud_check" class="form-control">
+            <option value="0" {{ payment_maxipago_credit_card_fraud_check == 0 ? 'selected' : '' }}>{{ text_disabled }}</option>
+            <option value="1" {{ payment_maxipago_credit_card_fraud_check == 1 ? 'selected' : '' }}>{{ text_enabled }}</option>
+        </select>
+    </div>
+</div>
+
+<div class="form-group fraud-check-dependent" style="display: none;">
+    <label class="col-sm-2 control-label">
+        <span data-toggle="tooltip" title="{{ credit_card_auto_void_tooltip }}">
+            {{ credit_card_auto_void_label }}
+        </span>
+    </label>
+    <div class="col-sm-10">
+        <select name="payment_maxipago_credit_card_auto_void" id="payment_maxipago_credit_card_auto_void" class="form-control">
+            <option value="0" {{ payment_maxipago_credit_card_auto_void == 0 ? 'selected' : '' }}>{{ text_disabled }}</option>
+            <option value="1" {{ payment_maxipago_credit_card_auto_void == 1 ? 'selected' : '' }}>{{ text_enabled }}</option>
+        </select>
+    </div>
+</div>
+
+<div class="form-group fraud-check-dependent" style="display: none;">
+    <label class="col-sm-2 control-label">
+        <span data-toggle="tooltip" title="{{ credit_card_auto_capture_tooltip }}">
+            {{ credit_card_auto_capture_label }}
+        </span>
+    </label>
+    <div class="col-sm-10">
+        <select name="payment_maxipago_credit_card_auto_capture" id="payment_maxipago_credit_card_auto_capture" class="form-control">
+            <option value="0" {{ payment_maxipago_credit_card_auto_capture == 0 ? 'selected' : '' }}>{{ text_disabled }}</option>
+            <option value="1" {{ payment_maxipago_credit_card_auto_capture == 1 ? 'selected' : '' }}>{{ text_enabled }}</option>
+        </select>
+    </div>
+</div>
+
+<div class="form-group fraud-check-dependent" style="display: none;">
+    <label class="col-sm-2 control-label">
+        <span data-toggle="tooltip" title="{{ credit_card_fraud_processor_tooltip }}">
+            {{ credit_card_fraud_processor_label }}
+        </span>
+    </label>
+    <div class="col-sm-10">
+        <select name="payment_maxipago_credit_card_fraud_processor" id="payment_maxipago_credit_card_fraud_processor" class="form-control">
+            <option value="99" {{ payment_maxipago_credit_card_fraud_processor == 99 ? 'selected' : (payment_maxipago_credit_card_fraud_processor == 98 ? '' : 'selected') }}>Kount</option>
+            <option value="98" {{ payment_maxipago_credit_card_fraud_processor == 98 ? 'selected' : '' }}>ClearSale</option>
+        </select>
+    </div>
+</div>
+
+<div class="form-group fraud-check-clearsale-dependent" style="display: none;">
+    <label class="col-sm-2 control-label">
+        <span data-toggle="tooltip" title="{{ credit_card_clearsale_app_tooltip }}">
+            {{ credit_card_clearsale_app_label }}
+        </span>
+    </label>
+    <div class="col-sm-10">
+        <input type="text" value="{{ payment_maxipago_credit_card_clearsale_app }}" class="form-control"
+               name="payment_maxipago_credit_card_clearsale_app" id="payment_maxipago_credit_card_clearsale_app"/>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">
+        <span data-toggle="tooltip" tittle="{{ credit_card_use_3ds_tooltip }}">
+            {{ credit_card_use_3ds_label }}
+        </span>
+    </label>
+    <div class="col-sm-10">
+        <select name="payment_maxipago_credit_card_use_3ds" id="payment_maxipago_credit_card_use_3ds" class="form-control">
+            <option value="0" {{ payment_maxipago_credit_card_use_3ds == 0 ? 'selected' : '' }}>{{ text_disabled }}</option>
+            <option value="1" {{ payment_maxipago_credit_card_use_3ds == 1 ? 'selected' : '' }}>{{ text_enabled }}</option>
+        </select>
+    </div>
+</div>
+
+<div class="form-group 3ds-dependent" style="display: none;">
+    <label class="col-sm-2 control-label">
+        <span data-toggle="tooltip" tittle="{{ credit_card_mpi_processor_tooltip }}">
+            {{ credit_card_mpi_processor_label }}
+        </span>
+    </label>
+    <div class="col-sm-10">
+        <select name="payment_maxipago_credit_card_mpi_processor" id="payment_maxipago_credit_card_mpi_processor" class="form-control">
+            <option value="41" {{ payment_maxipago_credit_card_mpi_processor == "41" ? 'selected' : '' }}>{{ credit_card_mpi_test }}</option>
+            <option value="40" {{ payment_maxipago_credit_card_mpi_processor == "40" ? 'selected' : '' }}>{{ credit_card_mpi_deployment }}</option>
+        </select>
+    </div>
+</div>
+
+<div class="form-group 3ds-dependent" style="display: none;">
+    <label class="col-sm-2 control-label">
+        <span data-toggle="tooltip" tittle="{{ credit_card_failure_action_tooltip }}">
+            {{ credit_card_failure_action_label }}
+        </span>
+    </label>
+    <div class="col-sm-10">
+        <select name="payment_maxipago_credit_card_failure_action" id="payment_maxipago_credit_card_failure_action" class="form-control">
+            <option value="decline" {{ payment_maxipago_credit_card_failure_action == "decline" ? 'selected' : '' }}>{{ credit_card_failure_action_decline }}</option>
+            <option value="continue" {{ payment_maxipago_credit_card_failure_action == "continue" ? 'selected' : '' }}>{{ credit_card_failure_action_continue }}</option>
+        </select>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div>
+                    <h3>{{ credit_card_acquirers_label }}</h3>
+                </div>
+                <small>{{ credit_card_acquirers_tooltip }}</small>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">
+                        {{ credit_card_visa_processor_label }}
+                    </label>
+                    <div class="col-sm-10">
+                        <select class="form-control"
+                                name="payment_maxipago_credit_card_visa_processor" id="payment_maxipago_credit_card_visa_processor">
+                            <option value="">{{ credit_card_processor_deactivate }}</option>
+                            {% for value, label in credit_card_visa_processors %}
+                                <option value="{{ value }}" {{ payment_maxipago_credit_card_visa_processor == value ? 'selected' : '' }}>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">
+                        {{ credit_card_mastercard_processor_label }}
+                    </label>
+                    <div class="col-sm-10">
+                        <select class="form-control"
+                                name="payment_maxipago_credit_card_mastercard_processor" id="payment_maxipago_credit_card_mastercard_processor">
+                            <option value="">{{ credit_card_processor_deactivate }}</option>
+                            {% for value, label in credit_card_mastercard_processors %}
+                                <option value="{{ value }}" {{ payment_maxipago_credit_card_mastercard_processor == value ? 'selected' : '' }}>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">
+                        {{ credit_card_amex_processor_label }}
+                    </label>
+                    <div class="col-sm-10">
+                        <select class="form-control"
+                                name="payment_maxipago_credit_card_amex_processor" id="payment_maxipago_credit_card_amex_processor">
+                            <option value="">{{ credit_card_processor_deactivate }}</option>
+                            {% for value, label in credit_card_amex_processors %}
+                                <option value="{{ value }}" {{ payment_maxipago_credit_card_amex_processor == value ? 'selected' : '' }}>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">
+                        {{ credit_card_diners_processor_label }}
+                    </label>
+                    <div class="col-sm-10">
+                        <select class="form-control"
+                                name="payment_maxipago_credit_card_diners_processor" id="payment_maxipago_credit_card_diners_processor">
+                            <option value="">{{ credit_card_processor_deactivate }}</option>
+                            {% for value, label in credit_card_diners_processors %}
+                                <option value="{{ value }}" {{ payment_maxipago_credit_card_diners_processor == value ? 'selected' : '' }}>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">
+                        {{ credit_card_elo_processor_label }}
+                    </label>
+                    <div class="col-sm-10">
+                        <select class="form-control"
+                                name="payment_maxipago_credit_card_elo_processor" id="payment_maxipago_credit_card_elo_processor">
+                            <option value="">{{ credit_card_processor_deactivate }}</option>
+                            {% for value, label in credit_card_elo_processors %}
+                                <option value="{{ value }}" {{ payment_maxipago_credit_card_elo_processor == value ? 'selected' : '' }}>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">
+                        {{ credit_card_discover_processor_label }}
+                    </label>
+                    <div class="col-sm-10">
+                        <select class="form-control"
+                                name="payment_maxipago_credit_card_discover_processor" id="payment_maxipago_credit_card_discover_processor">
+                            <option value="">{{ credit_card_processor_deactivate }}</option>
+                            {% for value, label in credit_card_discover_processors %}
+                                <option value="{{ value }}" {{ payment_maxipago_credit_card_discover_processor == value ? 'selected' : '' }}>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">
+                        {{ credit_card_hipercard_processor_label }}
+                    </label>
+                    <div class="col-sm-10">
+                        <select class="form-control"
+                                name="payment_maxipago_credit_card_hipercard_processor" id="payment_maxipago_credit_card_hipercard_processor">
+                            <option value="">{{ credit_card_processor_deactivate }}</option>
+                            {% for value, label in credit_card_hipercard_processors %}
+                                <option value="{{ value }}" {{ payment_maxipago_credit_card_hipercard_processor == value ? 'selected' : '' }}>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">
+                        {{ credit_card_hiper_processor_label }}
+                    </label>
+                    <div class="col-sm-10">
+                        <select class="form-control"
+                                name="payment_maxipago_credit_card_hiper_processor" id="payment_maxipago_credit_card_hiper_processor">
+                            <option value="">{{ credit_card_processor_deactivate }}</option>
+                            {% for value, label in credit_card_hiper_processors %}
+                                <option value="{{ value }}" {{ payment_maxipago_credit_card_hiper_processor == value ? 'selected' : '' }}>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">
+                        {{ credit_card_jcb_processor_label }}
+                    </label>
+                    <div class="col-sm-10">
+                        <select class="form-control"
+                                name="payment_maxipago_credit_card_jcb_processor" id="payment_maxipago_credit_card_jcb_processor">
+                            <option value="">{{ credit_card_processor_deactivate }}</option>
+                            {% for value, label in credit_card_jcb_processors %}
+                                <option value="{{ value }}" {{ payment_maxipago_credit_card_jcb_processor == value ? 'selected' : '' }}>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">
+                        {{ credit_card_aura_processor_label }}
+                    </label>
+                    <div class="col-sm-10">
+                        <select class="form-control"
+                                name="payment_maxipago_credit_card_aura_processor" id="payment_maxipago_credit_card_aura_processor">
+                            <option value="">{{ credit_card_processor_deactivate }}</option>
+                            {% for value, label in credit_card_aura_processors %}
+                                <option value="{{ value }}" {{ payment_maxipago_credit_card_aura_processor == value ? 'selected' : '' }}>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">
+                        {{ credit_card_credz_processor_label }}
+                    </label>
+                    <div class="col-sm-10">
+                        <select class="form-control"
+                                name="payment_maxipago_credit_card_credz_processor" id="payment_maxipago_credit_card_credz_processor">
+                            <option value="">{{ credit_card_processor_deactivate }}</option>
+                            {% for value, label in credit_card_credz_processors %}
+                                <option value="{{ value }}" {{ payment_maxipago_credit_card_credz_processor == value ? 'selected' : '' }}>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

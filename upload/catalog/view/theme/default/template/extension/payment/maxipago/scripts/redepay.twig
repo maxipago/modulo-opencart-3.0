@@ -1,0 +1,36 @@
+<script>
+    $('#maxipago-form #button-confirm-redepay').on('click', function() {
+        if(redepayFieldsAreValid())
+            submitRedepay();
+    });
+
+    function redepayFieldsAreValid()
+    {
+        $('#maxipago-form #panel-redepay .form-group').removeClass('has-error');
+
+        if(fieldIsEmpty('redepay_document'))
+            addErrorToFieldFormGroup('redepay_document');
+
+        return noFieldHasError('panel-redepay');
+    }
+
+    function submitRedepay()
+    {
+        var formData = getRedepayFormData();
+        formData.method = 'redepay';
+
+        beginCheckoutTransaction(formData, function(successData) {
+            successData.type = 'redepay';
+            return successData;
+        });
+    }
+
+    function getRedepayFormData()
+    {
+        var data = {};
+
+        data.document = $('#maxipago-form #redepay_document').cleanVal();
+
+        return data;
+    }
+</script>

@@ -1,0 +1,56 @@
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <i class="fa fa-gear"></i>
+                {{ text_configure }}
+            </h3>
+        </div>
+        <div class="panel-body">
+            {% if error_permission %}
+                <div class="alert alert-danger">
+                    <i class="fa fa-exclamation-circle"></i>
+                    {{ text_error_permission }}
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                </div>
+            {% endif %}
+            <form action="{{ action_url }}" method="post" enctype="multipart/form-data" id="form-koin" class="form-horizontal">
+
+                <ul class="nav nav-tabs row">
+                    <li class="active"><a href="#tab-general" data-toggle="tab">{{ tab_general }}</a></li>
+                    <li><a href="#tab-order-status" data-toggle="tab">{{ tab_order_status }}</a></li>
+                    <li><a href="#tab-credit-card" data-toggle="tab">{{ tab_credit_card }}</a></li>
+                    <li><a href="#tab-debit-card" data-toggle="tab">{{ tab_debit_card }}</a></li>
+                    <li><a href="#tab-invoice" data-toggle="tab">{{ tab_invoice }}</a></li>
+                    <li><a href="#tab-eft" data-toggle="tab">{{ tab_eft }}</a></li>
+                    <li><a href="#tab-redepay" data-toggle="tab">{{ tab_redepay }}</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab-general">
+                        {% include 'extension/payment/maxipago/tabs/general.twig' %}
+                    </div>
+                    <div class="tab-pane" id="tab-order-status">
+                        {% include 'extension/payment/maxipago/tabs/status.twig' %}
+                    </div>
+                    <div class="tab-pane" id="tab-credit-card">
+                        {% include 'extension/payment/maxipago/tabs/credit_card.twig' %}
+                    </div>
+                    <div class="tab-pane" id="tab-debit-card">
+                        {% include 'extension/payment/maxipago/tabs/debit_card.twig' %}
+                    </div>
+                    <div class="tab-pane" id="tab-invoice">
+                        {% include 'extension/payment/maxipago/tabs/invoice.twig' %}
+                    </div>
+                    <div class="tab-pane" id="tab-eft">
+                        {% include 'extension/payment/maxipago/tabs/eft.twig' %}
+                    </div>
+                    <div class="tab-pane" id="tab-redepay">
+                        {% include 'extension/payment/maxipago/tabs/redepay.twig' %}
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

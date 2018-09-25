@@ -1,0 +1,165 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <input type="radio" name="payment_method" data-panel="credit-card"/>
+        <img src="{{ image_title_credit_card }}">
+        {{ text_title_credit_card }}
+    </div>
+    <div id="panel-credit-card" class="panel-body payment-panel" style="display: none;">
+
+        {% if credit_card_allow_save %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>{{ credit_card_use_card_label }}</label>
+                    <select id="credit_card_use_card" name="credit_card_use_card" class="form-control">
+                        <option value="">{{ text_select }}</option>
+                        {% for card in credit_card_saved_cards %}
+                            <option value="{{ card['description'] }}">{{ card['brand'] }} - {{ card['description'] }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="row new-credit-card">
+            <div class="col-md-12">
+                <div>
+                    <label>{{ credit_card_brand_label }}</label>
+                </div>
+                <div class="form-group">
+                    <div class="form-control" style="height: fit-content; overflow: auto;">
+                        {% for brand in credit_card_brands %}
+                            <div class="pull-left">
+                                <label class="mp-card-cc-brand">
+                                    <input type="radio" name="credit_card_brand" class="maxipago-cc-brand" value="{{ brand | lower }}" />
+                                    <img src="{{ image_brands_base_url }}{{ brand | lower }}.png" height="39" width="58"/>
+                                </label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row new-credit-card">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>{{ credit_card_card_number_label }}</label>
+                    <input id="credit_card_number" name="credit_card_number"
+                           type="text" class="form-control card-number" placeholder="**** **** **** ****" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row new-credit-card">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>{{ credit_card_card_owner_label }}</label>
+                    <input id="credit_card_owner" name="credit_card_owner"
+                           type="text" class="form-control" placeholder="{{ credit_card_card_owner_placeholder }}" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>{{ credit_card_expiry_month_label }}</label>
+                    <select id="credit_card_expiry_month" name="credit_card_expiry_month" class="form-control">
+                        {% for month in months %}
+                            <option value="{{ month['value'] }}">{{ month['label'] }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>{{ credit_card_expiry_year_label }}</label>
+                    <select id="credit_card_expiry_year" name="credit_card_expiry_year" class="form-control">
+                        {% for year in expiry_years %}
+                            <option value="{{ year }}">{{ year }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>{{ credit_card_cvv_label }}</label>
+                    <input id="credit_card_cvv" name="credit_card_cvv"
+                       type="text" class="form-control cvv" placeholder="{{ credit_card_cvv_placeholder }}" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div style="padding-top: 32px;">
+                    <img src="{{ image_cvv }}" />
+                </div>
+            </div>
+        </div>
+
+        {% if has_recurring_products %}
+            <div style="display: none;">
+                <select id="credit_card_installments" name="credit_card_installments">
+                    <option value="1"></option>
+                </select>
+            </div>
+        {% else %}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>{{ credit_card_installments_label }}</label>
+                        <select id="credit_card_installments" name="credit_card_installments" class="form-control">
+                            <option value="">{{ text_select }}</option>
+                            {% for installment in credit_card_installments %}
+                                <option value="{{ installment['installments'] }}">
+                                    {{ installment['installments'] }} x {{ installment['installment_value_formated'] }}
+                                    {% if installment['interest_rate'] %}
+                                        ({{ installment['total_formated'] }})
+                                    {% endif %}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>{{ credit_card_document_label }}</label>
+                    <input id="credit_card_document" name="credit_card_document"
+                           type="text" class="form-control cpfcnpj" placeholder="***.***.***-**"/>
+                </div>
+            </div>
+        </div>
+
+        {% if credit_card_allow_save %}
+            <div class="row new-credit-card">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>
+                            <input id="credit_card_save" name="credit_card_save" type="checkbox">
+                            {{ credit_card_save_card }}
+                        </label>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        <hr />
+        <div class="buttons">
+            <div class="pull-right">
+                <input type="button"
+                       value="{{ credit_card_delete_card }}" style="display: none"
+                       id="button-delete-credit-card" class="btn btn-danger" />
+                <input type="button"
+                       value="{{ credit_card_submit_checkout }}"
+                       id="button-confirm-credit-card" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</div>

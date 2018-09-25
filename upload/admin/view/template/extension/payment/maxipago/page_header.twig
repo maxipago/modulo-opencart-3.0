@@ -1,0 +1,62 @@
+<div class="page-header">
+    <div class="container-fluid">
+
+        <div class="pull-right">
+
+            <a href="{{ sync_url }}" data-toggle="tooltip" title="{{ text_sync }}" class="btn btn-default">
+                <i class="fa fa-refresh"></i>
+                {{ button_sync }}
+            </a>
+
+            <button type="submit" form="form-koin" data-toggle="tooltip" title="{{ text_save }}" class="btn btn-primary">
+                <i class="fa fa-save"></i>
+                {{ button_save }}
+            </button>
+
+            <a href="{{ cancel_url }}" title="{{ text_cancel }}" data-toggle="tooltip"
+               class="btn btn-default">
+                <i class="fa fa-reply"></i>
+                {{ button_cancel }}
+            </a>
+        </div>
+
+        <a target="_BLANK" href="https://www.maxipago.com.br">
+            <img src="view/image/payment/maxipago.jpg" alt="maxiPago!" title="maxiPago!" style="border: 1px solid #EEEEEE;height:25px;" />
+        </a>
+        <h1>{{ heading_title }}</h1>
+        <ul class="breadcrumb">
+            {% for breadcrumb in breadcrumbs %}
+                <li>
+                    <a href="{{ breadcrumb['href'] }}">{{ breadcrumb['text'] }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+
+        {% if success %}
+            <div class="alert alert-success">
+                <p>{{ success }}</p>
+            </div>
+        {% endif %}
+
+        {% if error %}
+            <div class="alert alert-danger">
+                <p>{{ error }}</p>
+            </div>
+        {% endif %}
+
+        <div class="alert alert-info">
+            <p>{{ text_cron }}</p>
+            <hr />
+            <pre>30 1 * * * wget -O /dev/null {{ notification_sync_url }}</pre>
+        </div>
+
+        <div class="alert alert-info">
+            <h4>{{ text_notification }}</h4>
+            <p>{{ text_notification_configure }}</p>
+            <hr>
+            <p><strong>{{ text_notification_success }}: </strong>{{ notification_url_success }}</p>
+            <p><strong>{{ text_notification_error }}: </strong>{{ notification_url_error }}</p>
+            <p><strong>{{ text_notification_notification }}: </strong>{{ notification_url_notification }}</p>
+        </div>
+    </div>
+</div>

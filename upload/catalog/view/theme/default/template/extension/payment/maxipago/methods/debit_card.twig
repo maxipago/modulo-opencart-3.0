@@ -1,0 +1,105 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <input type="radio" name="payment_method" data-panel="debit-card"/>
+        <img src="{{ image_title_debit_card }}" />
+        {{ text_title_debit_card }}
+    </div>
+    <div id="panel-debit-card" class="panel-body payment-panel" style="display: none;">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div>
+                    <label>{{ debit_card_brand_label }}</label>
+                </div>
+                <div class="form-group">
+                    <div class="form-control" style="height: fit-content; overflow: auto;">
+                        {% for brand in debit_card_brands %}
+                            <div class="pull-left">
+                                <label class="mp-card-dc-brand">
+                                    <input type="radio" name="debit_card_brand" class="maxipago-dc-brand" value="{{ brand | lower }}" />
+                                    <img src="{{ image_brands_base_url }}{{ brand | lower }}.png" height="39" width="58"/>
+                                </label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>{{ debit_card_card_number_label }}</label>
+                    <input id="debit_card_number" name="debit_card_number"
+                           type="text" class="form-control card-number" placeholder="**** **** **** ****" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>{{ debit_card_card_owner_label }}</label>
+                    <input id="debit_card_owner" name="debit_card_owner"
+                           type="text" class="form-control" placeholder="{{ debit_card_card_owner_placeholder }}" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>{{ debit_card_expiry_month_label }}</label>
+                    <select id="debit_card_expiry_month" name="debit_card_expiry_month" class="form-control">
+                        {% for month in months %}
+                            <option value="{{ month['value'] }}">{{ month['label'] }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>{{ debit_card_expiry_year_label }}</label>
+                    <select id="debit_card_expiry_year" name="debit_card_expiry_year" class="form-control">
+                        {% for year in expiry_years %}
+                            <option value="{{ year }}">{{ year }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>{{ debit_card_cvv_label }}</label>
+                    <input id="debit_card_cvv" name="debit_card_cvv"
+                           type="text" class="form-control cvv" placeholder="{{ debit_card_cvv_placeholder }}" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div style="padding-top: 32px;">
+                    <img src="{{ image_cvv }}" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>{{ debit_card_document_label }}</label>
+                    <input id="debit_card_document" name="debit_card_document"
+                           type="text" class="form-control cpfcnpj" placeholder="***.***.***-**"/>
+                </div>
+            </div>
+        </div>
+
+        <hr />
+        <div class="buttons">
+            <div class="pull-right">
+                <input type="button" value="{{ debit_card_submit_checkout }}"
+                       id="button-confirm-debit-card" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,166 @@
+<script type="text/javascript" src="{{ base_url }}catalog/view/javascript/jquery/mask/jquery.mask.min.js"></script>
+
+{% if credit_card_enabled %}
+    {% include 'default/template/extension/payment/maxipago/scripts/credit_card.twig' %}
+{% endif %}
+
+{% if debit_card_enabled %}
+    {% include 'default/template/extension/payment/maxipago/scripts/debit_card.twig' %}
+{% endif %}
+
+{% if eft_enabled %}
+    {% include 'default/template/extension/payment/maxipago/scripts/eft.twig' %}
+{% endif %}
+
+{% if invoice_enabled %}
+    {% include 'default/template/extension/payment/maxipago/scripts/invoice.twig' %}
+{% endif %}
+
+{% if redepay_enabled %}
+    {% include 'default/template/extension/payment/maxipago/scripts/redepay.twig' %}
+{% endif %}
+
+<script>
+    $('#maxipago-form input[type=radio][name=payment_method]').change(function() {
+        $('#maxipago-form .payment-panel').slideUp();
+        $('#panel-' + $(this).data('panel')).slideDown();
+    });
+
+    function clearError()
+    {
+        $('#maxipago-form #error-panel').slideUp();
+        $('#maxipago-form #error-panel p span').text('');
+    }
+
+    function showError(message)
+    {
+        $('#maxipago-form #error-panel p span').text(message);
+        $('#maxipago-form #error-panel').slideDown();
+        scrollTo('#error-panel');
+    }
+
+    function fieldIsEmpty(field)
+    {
+        return $('#maxipago-form #' + field).val() == '';
+    }
+
+    function noRadiosSelected(radio_name)
+    {
+        return $('#maxipago-form input[name=' + radio_name + ']:checked').val() == undefined;
+    }
+
+    function addErrorToFieldFormGroup(field)
+    {
+        $('#maxipago-form #' + field).closest('.form-group').addClass('has-error');
+    }
+
+    function addErrorToRadioSelection(radio_name)
+    {
+        $('#maxipago-form input[name=' + radio_name + ']').closest('.col-md-12 .form-group').addClass('has-error');
+    }
+
+    function noFieldHasError(panel)
+    {
+        return $('#maxipago-form #' + panel + ' .form-group.has-error').length == 0;
+    }
+
+    function beginCheckoutTransaction(data, successDataFilter)
+    {
+        $.ajax({
+            url: 'index.php?route=extension/payment/maxipago/transaction',
+            data: data,
+            type: 'POST',
+            dataType: 'JSON',
+            beforeSend: function() {
+                console.log('begin::beforeSend');
+                $('#button-confirm-credit-card').prop('disabled', true);
+                clearError();
+            },
+            success: function(data){
+                console.log('begin::success');
+                $('#button-confirm-credit-card').prop('disabled', false);
+
+                if(data.error) {
+                    showError(data.message);
+                    return;
+                }
+
+                if(!data.recurring)
+                {
+                    if (typeof data.orderID == "undefined" || !data.orderID) {
+                        showError('maxiPago! : [' + data.responseMessage + ']');
+                        return;
+                    }
+                }
+
+                data = successDataFilter(data);
+
+                continueCheckout(data);
+            },
+            complete: function() {
+                console.log('begin::complete');
+                $('#button-confirm-credit-card').prop('disabled', false);
+            },
+            error: function() {
+                console.log('begin::error');
+                $('#button-confirm-credit-card').prop('disabled', false);
+            }
+        });
+    }
+
+    function continueCheckout(data)
+    {
+        $.ajax({
+            url: 'index.php?route=extension/payment/maxipago/confirm',
+            data: data,
+            type: 'POST',
+            success: function(data) {
+                console.log('continue::success');
+                if(data.error)
+                {
+                    showError(data.message);
+                    return;
+                }
+
+                location.href = data.url;
+            }
+        });
+    }
+
+    function autoSelectPaymentMethod()
+    {
+        var paymentMethods = $('#maxipago-form input[type=radio][name=payment_method]');
+
+        if(paymentMethods.length > 1)
+            return;
+
+        if(paymentMethods.length == 0)
+            $('#maxipago-form #bad-config-panel').show();
+
+        if (paymentMethods.length == 1)
+            paymentMethods[0].click();
+    }
+
+    function scrollTo(id){
+        $('html,body').animate({
+            scrollTop: $(id).offset().top
+        }, 'slow');
+    }
+
+    $('.card-number').mask('9999 9999 9999 9999');
+    $('.cpf').mask('999.999.999-99');
+    $('.cnpj').mask('99.999.999/9999-99');
+    $('.cvv').mask('999');
+    $('.expiry').mask('99/9999');
+
+    var maskOptions = {
+        onKeyPress: function (cpf, ev, el, op) {
+            var masks = ['000.000.000-000', '00.000.000/0000-00'];
+            $('.cpfcnpj').mask((cpf.length > 14) ? masks[1] : masks[0], op);
+        }
+    };
+
+    $('.cpfcnpj').length > 11 ? $('.cpfcnpj').mask('00.000.000/0000-00', maskOptions) : $('.cpfcnpj').mask('000.000.000-00#', maskOptions);
+
+    autoSelectPaymentMethod();
+</script>

@@ -1,0 +1,83 @@
+<div class="form-group">
+    <label class="col-sm-2 control-label">
+        <span data-toggle="tooltip" title="{{ status_tooltip }}">
+            {{ status_label }}
+        </span>
+    </label>
+    <div class="col-sm-10">
+        <select name="payment_maxipago_status" id="payment_maxipago_status" class="form-control">
+            <option value="0" {{ payment_maxipago_status == 0 ? 'selected' : '' }}>{{ text_disabled }}</option>
+            <option value="1" {{ payment_maxipago_status == 1 ? 'selected' : '' }}>{{ text_enabled }}</option>
+        </select>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">
+        <span data-toggle="tooltip" title="{{ environment_tooltip }}">
+            {{ environment_label }}
+        </span>
+    </label>
+    <div class="col-sm-10">
+        <select name="payment_maxipago_environment" id="payment_maxipago_environment" class="form-control">
+            <option value="test" {{ payment_maxipago_environment == 'test' ? 'selected' : '' }}>{{ environment_entry_test }}</option>
+            <option value="production" {{ payment_maxipago_environment == 'production' ? 'selected' : '' }}>{{ environment_entry_production }}</option>
+        </select>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">
+        <span data-toggle="tooltip" title="{{ merchant_id_tooltip }}">
+            {{ merchant_id_label }}
+        </span>
+    </label>
+    <div class="col-sm-10 control-label">
+        <input type="text" id="payment_maxipago_store_id" name="payment_maxipago_store_id" class="form-control" value="{{ payment_maxipago_store_id }}"/>
+        {% if error_store_id %}
+            <div class="text-danger">{{ text_error_store_id }}</div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">
+        <span data-toggle="tooltip" title="{{ merchant_key_tooltip }}">
+            {{ merchant_key_label }}
+        </span>
+    </label>
+    <div class="col-sm-10 control-label">
+        <input type="text" id="payment_maxipago_store_key" name="payment_maxipago_store_key" class="form-control" value="{{ payment_maxipago_store_key }}"/>
+        {% if error_store_key %}
+            <div class="text-danger">{{ text_error_store_key }}</div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">
+        <span data-toggle="tooltip" title="{{ merchant_secret_tooltip }}">
+            {{ merchant_secret_label }}
+        </span>
+    </label>
+    <div class="col-sm-10 control-label">
+        <input type="text" id="payment_maxipago_store_secret" name="payment_maxipago_store_secret" class="form-control" value="{{ payment_maxipago_store_secret }}"/>
+        {% if error_store_secret %}
+            <div class="text-danger">{{ text_error_store_secret }}</div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">
+        <span data-toggle="tooltip" title="{{ log_tooltip }}">
+            {{ log_label }}
+        </span>
+    </label>
+    <div class="col-sm-10">
+        <select name="payment_maxipago_log" id="payment_maxipago-log" class="form-control">
+            <option value="0" {{ payment_maxipago_log == 0 ? 'selected' : '' }}>{{ text_disabled }}</option>
+            <option value="1" {{ payment_maxipago_log == 1 ? 'selected' : '' }}>{{ text_enabled }}</option>
+        </select>
+    </div>
+</div>

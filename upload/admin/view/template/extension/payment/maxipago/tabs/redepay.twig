@@ -1,0 +1,13 @@
+<div class="form-group">
+    <label class="col-sm-2 control-label">
+        <span data-toggle="tooltip" title="{{ redepay_enable_tooltip }}">
+            {{ redepay_enable_label }}
+        </span>
+    </label>
+    <div class="col-sm-10">
+        <select name="payment_maxipago_redepay_enabled" id="payment_maxipago_redepay_enabled" class="form-control">
+            <option value="0" {{ payment_maxipago_redepay_enabled == 0 ? 'selected' : '' }}>{{ text_disabled }}</option>
+            <option value="1" {{ payment_maxipago_redepay_enabled == 1 ? 'selected' : '' }}>{{ text_enabled }}</option>
+        </select>
+    </div>
+</div>

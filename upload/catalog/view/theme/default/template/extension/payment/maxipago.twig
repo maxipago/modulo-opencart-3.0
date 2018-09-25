@@ -1,0 +1,36 @@
+<div class="content" id="maxipago-data">
+    <form id="maxipago-form">
+        {% if credit_card_enabled %}
+            {% include 'default/template/extension/payment/maxipago/methods/credit_card.twig' %}
+        {% endif %}
+
+        {% if debit_card_enabled %}
+            {% include 'default/template/extension/payment/maxipago/methods/debit_card.twig' %}
+        {% endif %}
+
+        {% if eft_enabled %}
+            {% include 'default/template/extension/payment/maxipago/methods/eft.twig' %}
+        {% endif %}
+
+        {% if invoice_enabled %}
+            {% include 'default/template/extension/payment/maxipago/methods/invoice.twig' %}
+        {% endif %}
+
+        {% if redepay_enabled %}
+            {% include 'default/template/extension/payment/maxipago/methods/redepay.twig' %}
+        {% endif %}
+        <div id="error-panel" class="panel panel-danger" style="display: none;">
+            <div class="panel-body alert-danger">
+                <p><i class="glyphicon glyphicon-remove-sign"></i>&nbsp;<span></span></p>
+            </div>
+        </div>
+
+        <div id="bad-config-panel" class="alert alert-danger" style="display: none;">
+            <strong><i class="glyphicon glyphicon-remove-sign"></i> {{ bad_configuration_title }}</strong>
+            <p>{{ bad_configuration_text }}</p>
+        </div>
+    </form>
+</div>
+
+{% include 'default/template/extension/payment/maxipago/script.twig' %}
+{% include 'default/template/extension/payment/maxipago/style.twig' %}

@@ -1,0 +1,71 @@
+<script>
+
+    function checkMaximumInstallmentsVisibility()
+    {
+        if($('#payment_maxipago_credit_card_maximum_installments').val() == 1)
+        {
+            $('.maximum-installments-dependent').slideUp();
+        } else
+        {
+            $('.maximum-installments-dependent').slideDown();
+        }
+    }
+
+    function checkFraudCheckVisibility()
+    {
+        if($('#payment_maxipago_credit_card_fraud_check').val() == 0)
+        {
+            $('.fraud-check-dependent').slideUp();
+            $('#payment_maxipago_credit_card_fraud_processor').val('').change();
+        } else
+        {
+            $('.fraud-check-dependent').slideDown();
+        }
+    }
+
+    function checkFraudProcessorClearsaleVisibility()
+    {
+        var clearSaleAppId = 98;
+
+        if($('#payment_maxipago_credit_card_fraud_processor').val() != clearSaleAppId)
+        {
+            $('.fraud-check-clearsale-dependent').slideUp();
+        } else
+        {
+            $('.fraud-check-clearsale-dependent').slideDown();
+        }
+    }
+
+    function check3DSVisibility()
+    {
+        if($('#payment_maxipago_credit_card_use_3ds').val() == 0)
+        {
+            $('.3ds-dependent').slideUp();
+        } else
+        {
+            $('.3ds-dependent').slideDown();
+        }
+    }
+
+    $('#payment_maxipago_credit_card_maximum_installments').on('change', function(){
+        checkMaximumInstallmentsVisibility();
+    });
+
+    $('#payment_maxipago_credit_card_fraud_check').on('change', function() {
+        checkFraudCheckVisibility();
+    });
+
+    $('#payment_maxipago_credit_card_fraud_processor').on('change', function() {
+        checkFraudProcessorClearsaleVisibility();
+    });
+
+    $('#payment_maxipago_credit_card_use_3ds').on('change', function() {
+        check3DSVisibility();
+    });
+
+    checkMaximumInstallmentsVisibility();
+    checkFraudCheckVisibility();
+    checkFraudProcessorClearsaleVisibility();
+    check3DSVisibility();
+
+</script>

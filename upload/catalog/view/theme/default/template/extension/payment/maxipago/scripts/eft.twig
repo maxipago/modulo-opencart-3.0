@@ -1,0 +1,45 @@
+<script>
+    $('input.maxipago-bank').on('click', function(){
+        $('.mp-card-bank img').removeClass('active');
+        $(this).siblings('img').addClass('active');
+    });
+
+    $('#maxipago-form #button-confirm-eft').on('click', function() {
+        if(eftFieldsAreValid())
+            submitEft();
+    });
+
+    function eftFieldsAreValid()
+    {
+        $('#maxipago-form #panel-eft .form-group').removeClass('has-error');
+
+        if(noRadiosSelected('eft_bank'))
+            addErrorToRadioSelection('eft_bank');
+
+        if(fieldIsEmpty('eft_document'))
+            addErrorToFieldFormGroup('eft_document');
+
+        return noFieldHasError('panel-eft');
+    }
+
+    function submitEft()
+    {
+        var formData = getEftFormData();
+        formData.method = 'eft';
+
+        beginCheckoutTransaction(formData, function(successData) {
+            successData.type = 'eft';
+            return successData;
+        });
+    }
+
+    function getEftFormData()
+    {
+        var data = {};
+
+        data.bank = $('#maxipago-form input[name=eft_bank]:checked').val();
+        data.document = $('#maxipago-form #eft_document').cleanVal();
+
+        return data;
+    }
+</script>
